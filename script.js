@@ -82,6 +82,13 @@ function update() {
         else {
             currTile.classList.add("absent");
         }
+        if (correct == width) {
+    gameOver = true;
+
+    setTimeout(() => {
+        window.location.href = "success.html";
+    }, 1200);
+}
 
         if (correct == width) {
             gameOver = true;
