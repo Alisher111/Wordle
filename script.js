@@ -93,6 +93,6 @@ function update() {
         if (correct == width) {
             gameOver = true;
         }
-
+currTile.classList.add("reveal");
     }
 }
