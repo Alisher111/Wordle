@@ -203,3 +203,18 @@ a:hover {
     font-size: 22px;
     color: #bdbdbd;
 }
+#title {
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #00ff88;
+    }
+
+    to {
+        text-shadow:
+            0 0 20px #00ff88,
+            0 0 40px #00ff88;
+    }
+}
