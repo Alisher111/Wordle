@@ -6,309 +6,211 @@ body {
 
     background: linear-gradient(
         180deg,
-        #0a0a0a 0%,
-        #111111 100%
+        #f7f3ee 0%,
+        #efe7dc 100%
     );
 
-    color: white;
+    color: #2b2b2b;
     min-height: 100vh;
 }
 
-#title {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: 4px;
+/* =======================
+   TITLE (soft calm)
+======================= */
 
-    color: #00ff88;
+#title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    color: #3d3a35;
 
     margin-top: 40px;
 
-    text-shadow:
-        0 0 10px rgba(0,255,136,0.5);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    animation: none;
 }
+
+/* =======================
+   BOARD (paper card)
+======================= */
 
 #board {
-    width: 350px;
-    height: 420px;
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(6, 60px);
+    gap: 8px;
 
-    margin: 20px auto;
-
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
 
-    padding: 15px;
+    margin: 25px auto;
 
-    border-radius: 20px;
+    padding: 18px;
 
-    background: rgba(255,255,255,0.03);
+    border-radius: 18px;
 
-    backdrop-filter: blur(8px);
+    background: #fffaf3;
 
     box-shadow:
-        0 0 25px rgba(0,255,136,0.08);
+        0 10px 30px rgba(0,0,0,0.08);
+
+    border: 1px solid rgba(0,0,0,0.06);
 }
+
+/* =======================
+   TILES (soft cards)
+======================= */
 
 .tile {
     width: 60px;
     height: 60px;
-    margin: 4px;
 
-    border: 2px solid #2a2a2a;
+    margin: 0;
+
     border-radius: 12px;
 
-    background-color: #151515;
+    background-color: #ffffff;
 
-    color: white;
+    border: 2px solid #e7ded2;
 
-    font-size: 32px;
+    color: #2b2b2b;
+
+    font-size: 28px;
     font-weight: 700;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    transition: 0.2s ease;
+    transition: transform 0.15s ease, background-color 0.2s ease;
 }
 
 .tile:hover {
-    transform: scale(1.05);
-    border-color: #00ff88;
+    transform: translateY(-2px);
+    border-color: #c9b9a3;
 }
 
+/* pop animation */
+.tile.pop {
+    animation: pop 0.12s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.85); }
+    100% { transform: scale(1); }
+}
+
+/* =======================
+   WORDLE COLORS (cozy palette)
+======================= */
+
 .correct {
-    background: #00c853;
-    border-color: #00c853;
+    background: #7fbf9b; /* muted green */
+    border-color: #7fbf9b;
     color: white;
 }
 
 .present {
-    background: #ffb300;
-    border-color: #ffb300;
+    background: #e3c26f; /* warm mustard */
+    border-color: #e3c26f;
     color: white;
 }
 
 .absent {
-    background: #444;
-    border-color: #444;
+    background: #b8b2aa; /* soft gray */
+    border-color: #b8b2aa;
     color: white;
 }
+
+/* =======================
+   BUTTON / LINK (soft UI)
+======================= */
 
 a {
     display: inline-block;
 
     margin-top: 20px;
-    padding: 12px 28px;
+    padding: 12px 26px;
 
-    background: #00ff88;
-    color: black;
+    background: #d8bfa3;
+    color: #2b2b2b;
 
     font-weight: 700;
     text-decoration: none;
 
     border-radius: 12px;
 
-    transition: 0.3s ease;
+    transition: 0.2s ease;
 }
 
 a:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 0 20px rgba(0,255,136,0.4);
-}
-.hero {
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
+    transform: translateY(-2px);
+    background: #cfae8f;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-.hero-content {
-    padding: 40px;
-
-    border-radius: 24px;
-
-    background: rgba(255,255,255,0.03);
-
-    backdrop-filter: blur(10px);
-
-    box-shadow:
-        0 0 30px rgba(0,255,136,0.08);
-}
-
-.subtitle {
-    margin-top: 15px;
-    font-size: 18px;
-    color: #bdbdbd;
-}
-
-.start-btn {
-    display: inline-block;
-
-    margin-top: 30px;
-    padding: 14px 36px;
-
-    background: #00ff88;
-    color: black;
-
-    font-size: 18px;
-    font-weight: 700;
-
-    border-radius: 12px;
-
-    text-decoration: none;
-
-    transition: 0.3s ease;
-}
-
-.start-btn:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 0 20px rgba(0,255,136,0.4);
-}
-.fail-screen {
-    border: 1px solid rgba(255,0,0,0.2);
-
-    box-shadow:
-        0 0 25px rgba(255,0,0,0.08);
-}
-
-.answer-text {
-    margin-top: 20px;
-
-    font-size: 22px;
-    color: #bdbdbd;
-}
-
-.answer-text span {
-    color: #ff5252;
-    font-weight: 700;
-    letter-spacing: 3px;
-}
-.success-screen {
-    border: 1px solid rgba(0,255,136,0.2);
-
-    box-shadow:
-        0 0 30px rgba(0,255,136,0.15);
-}
-
-.victory-text {
-    margin-top: 20px;
-
-    font-size: 22px;
-    color: #bdbdbd;
-}
-#title {
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #00ff88;
-    }
-
-    to {
-        text-shadow:
-            0 0 20px #00ff88,
-            0 0 40px #00ff88;
-    }
-}
-.game-page {
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 40px 20px;
-}
-
-.game-container {
-    width: 100%;
-    max-width: 700px;
-
-    text-align: center;
-
-    padding: 40px;
-
-    border-radius: 24px;
-
-    background: rgba(255,255,255,0.03);
-
-    backdrop-filter: blur(10px);
-
-    box-shadow:
-        0 0 30px rgba(0,255,136,0.08);
-}
+/* =======================
+   GAME CONTAINER (optional)
+======================= */
 
 .instructions {
-    margin-top: 40px;
+    margin-top: 35px;
 
     text-align: left;
 
-    background: rgba(255,255,255,0.02);
+    background: #fffaf3;
 
-    padding: 25px;
+    padding: 22px;
 
     border-radius: 16px;
+
+    border: 1px solid rgba(0,0,0,0.06);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 .instructions h2 {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 
-    color: #00ff88;
+    color: #3d3a35;
 }
 
 .instructions p {
-    margin: 10px 0;
+    margin: 8px 0;
 
-    color: #d0d0d0;
+    color: #5a5650;
 }
 
-.legend {
-    margin-top: 20px;
+/* =======================
+   SCREENS
+======================= */
+
+.fail-screen {
+    border: 1px solid rgba(200, 120, 120, 0.2);
+    box-shadow: 0 10px 25px rgba(200, 120, 120, 0.1);
 }
 
-.green {
-    color: #00c853;
-    font-weight: bold;
+.success-screen {
+    border: 1px solid rgba(120, 180, 140, 0.2);
+    box-shadow: 0 10px 25px rgba(120, 180, 140, 0.1);
 }
 
-.yellow {
-    color: #ffca28;
-    font-weight: bold;
-}
+/* =======================
+   COZY FEEL DETAIL
+======================= */
 
-.gray {
-    color: #9e9e9e;
-    font-weight: bold;
-}
-.tile {
-    transition:
-        transform 0.2s ease,
-        background-color 0.3s ease;
-}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
 
-.tile.reveal {
-    animation: flip 0.5s ease;
-}
+    background-image: radial-gradient(
+        rgba(0,0,0,0.03) 1px,
+        transparent 1px
+    );
 
-@keyframes flip {
+    background-size: 18px 18px;
 
-    0% {
-        transform: rotateX(0deg);
-    }
-
-    50% {
-        transform: rotateX(90deg);
-    }
-
-    100% {
-        transform: rotateX(0deg);
-    }
+    pointer-events: none;
 }
