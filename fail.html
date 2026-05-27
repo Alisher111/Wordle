@@ -1,23 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Game Over</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <main class="hero">
-        <div class="hero-content fail-screen">
-            <h1 id="title">GAME OVER</h1>
+
+        <section class="hero-content fail-screen">
+
+            <p class="result-label">
+                Wordle Result
+            </p>
+
+            <h1 id="title">
+                GAME OVER
+            </h1>
+
             <p class="answer-text">
                 The correct word was:
                 <span>WORLD</span>
             </p>
-            <a href="wordle.html" class="start-btn">
-                TRY AGAIN
-            </a>
-        </div>
+
+            <div class="result-buttons">
+
+                <a href="wordle.html" class="start-btn">
+                    TRY AGAIN
+                </a>
+
+                <a href="index.html" class="secondary-btn">
+                    HOME
+                </a>
+
+            </div>
+
+        </section>
+
     </main>
+
 </body>
 </html>
