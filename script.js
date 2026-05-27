@@ -1,98 +1,153 @@
-var height = 6; //number of guesses
-var width = 5; //length of the word
+var height = 6;
+var width = 5;
 
-var row = 0; //current guess (attempt #)
-var col = 0; //current letter for that attempt
+var row = 0;
+var col = 0;
 
 var gameOver = false;
-var word = "SQUID";
 
+const words = [
+ "APPLE",
+ "BRAVE",
+ "LIGHT",
+ "WORLD",
+ "SMILE"
+];
+word = words[Math.floor(Math.random() * words.length)];
 
-window.onload = function(){
-    intialize();
-}
+window.onload = function () {
+    initialize();
+};
 
+function initialize() {
 
-function intialize() {
-
-    // Create the game board
+    // CREATE BOARD
     for (let r = 0; r < height; r++) {
+
         for (let c = 0; c < width; c++) {
-            // <span id="0-0" class="tile">P</span>
+
             let tile = document.createElement("span");
-            tile.id = r.toString() + "-" + c.toString();
+
+            tile.id = r + "-" + c;
+
             tile.classList.add("tile");
-            tile.innerText = "";
-            document.getElementById("board").appendChild(tile);
+
+            document
+                .getElementById("board")
+                .appendChild(tile);
         }
     }
 
-
-    // Listen for Key Press
+    // KEYBOARD INPUT
     document.addEventListener("keyup", (e) => {
-        if (gameOver) return; 
 
-        // alert(e.code);
+        if (gameOver) return;
+
+        // LETTERS
         if ("KeyA" <= e.code && e.code <= "KeyZ") {
+
             if (col < width) {
-                let currTile = document.getElementById(row.toString() + '-' + col.toString());
+
+                let currTile = document.getElementById(
+                    row + "-" + col
+                );
+
                 if (currTile.innerText == "") {
+
                     currTile.innerText = e.code[3];
-                    col += 1;
+
+                    currTile.classList.add("pop");
+
+                    col++;
                 }
             }
         }
+
+        // BACKSPACE
         else if (e.code == "Backspace") {
-            if (0 < col && col <= width) {
-                col -=1;
+
+            if (col > 0) {
+
+                col--;
+
+                let currTile = document.getElementById(
+                    row + "-" + col
+                );
+
+                currTile.innerText = "";
             }
-            let currTile = document.getElementById(row.toString() + '-' + col.toString());
-            currTile.innerText = "";
         }
 
+        // ENTER
         else if (e.code == "Enter") {
+
+            // prevent incomplete words
+            if (col != width) return;
+
             update();
-            row += 1; //start new row
-            col = 0; //start at 0 for new row
+
+            row++;
+            col = 0;
+
+            // LOSE CONDITION
+            if (!gameOver && row == height) {
+
+                gameOver = true;
+
+                setTimeout(() => {
+
+                    window.location.href = "fail.html";
+
+                }, 1200);
+            }
         }
-
-
-        if (!gameOver && row == height) {
-            gameOver = true;
-            document.getElementById("answer").innerText = word;
-        }
-
-    })
+    });
 }
 
 function update() {
+
     let correct = 0;
+
     for (let c = 0; c < width; c++) {
-        let currTile = document.getElementById(row.toString() + '-' + c.toString());
+
+        let currTile = document.getElementById(
+            row + "-" + c
+        );
+
         let letter = currTile.innerText;
 
-        //Is it in the correct position?
+        currTile.classList.add("reveal");
+
+        // CORRECT POSITION
         if (word[c] == letter) {
+
             currTile.classList.add("correct");
-            correct += 1;
-        } // Is it in the word?
+
+            correct++;
+        }
+
+        // LETTER EXISTS
         else if (word.includes(letter)) {
+
             currTile.classList.add("present");
-        } // Not in the word
+        }
+
+        // LETTER NOT FOUND
         else {
+
             currTile.classList.add("absent");
         }
-        if (correct == width) {
-    gameOver = true;
+    }
 
-    setTimeout(() => {
-        window.location.href = "success.html";
-    }, 1200);
-}
+    // WIN CONDITION
+    if (correct == width) {
 
-        if (correct == width) {
-            gameOver = true;
-        }
-currTile.classList.add("reveal");
+        gameOver = true;
+
+        setTimeout(() => {
+
+            window.location.href = "success.html";
+
+        }, 1200);
     }
 }
