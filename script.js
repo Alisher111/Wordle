@@ -7,13 +7,14 @@ var col = 0;
 var gameOver = false;
 
 const words = [
- "APPLE",
- "BRAVE",
- "LIGHT",
- "WORLD",
- "SMILE"
+    "APPLE",
+    "BRAVE",
+    "LIGHT",
+    "WORLD",
+    "SMILE"
 ];
-word = words[Math.floor(Math.random() * words.length)];
+
+const word = words[Math.floor(Math.random() * words.length)];
 
 window.onload = function () {
     initialize();
@@ -21,9 +22,7 @@ window.onload = function () {
 
 function initialize() {
 
-    // CREATE BOARD
     for (let r = 0; r < height; r++) {
-
         for (let c = 0; c < width; c++) {
 
             let tile = document.createElement("span");
@@ -32,13 +31,10 @@ function initialize() {
 
             tile.classList.add("tile");
 
-            document
-                .getElementById("board")
-                .appendChild(tile);
+            document.getElementById("board").appendChild(tile);
         }
     }
 
-    // KEYBOARD INPUT
     document.addEventListener("keyup", (e) => {
 
         if (gameOver) return;
@@ -48,18 +44,15 @@ function initialize() {
 
             if (col < width) {
 
-                let currTile = document.getElementById(
-                    row + "-" + col
-                );
+                let tile = document.getElementById(row + "-" + col);
 
-                if (currTile.innerText == "") {
+                tile.innerText = e.code[3];
 
-                    currTile.innerText = e.code[3];
+                tile.classList.remove("pop");
+                void tile.offsetWidth;
+                tile.classList.add("pop");
 
-                    currTile.classList.add("pop");
-
-                    col++;
-                }
+                col++;
             }
         }
 
@@ -70,84 +63,70 @@ function initialize() {
 
                 col--;
 
-                let currTile = document.getElementById(
-                    row + "-" + col
-                );
+                let tile = document.getElementById(row + "-" + col);
 
-                currTile.innerText = "";
+                tile.innerText = "";
             }
         }
 
         // ENTER
         else if (e.code == "Enter") {
 
-            // prevent incomplete words
-            if (col != width) return;
+            if (col !== width) return;
 
-            update();
+            checkWord();
 
             row++;
             col = 0;
 
-            // LOSE CONDITION
             if (!gameOver && row == height) {
 
                 gameOver = true;
 
                 setTimeout(() => {
-
                     window.location.href = "fail.html";
-
-                }, 1200);
+                }, 1000);
             }
         }
     });
 }
 
-function update() {
+function checkWord() {
 
     let correct = 0;
 
     for (let c = 0; c < width; c++) {
 
-        let currTile = document.getElementById(
-            row + "-" + c
-        );
+        let tile = document.getElementById(row + "-" + c);
 
-        let letter = currTile.innerText;
+        let letter = tile.innerText;
 
-        currTile.classList.add("reveal");
+        tile.classList.add("reveal");
 
-        // CORRECT POSITION
-        if (word[c] == letter) {
+        if (letter == word[c]) {
 
-            currTile.classList.add("correct");
+            tile.classList.add("correct");
 
             correct++;
         }
 
-        // LETTER EXISTS
         else if (word.includes(letter)) {
 
-            currTile.classList.add("present");
+            tile.classList.add("present");
         }
 
-        // LETTER NOT FOUND
         else {
 
-            currTile.classList.add("absent");
+            tile.classList.add("absent");
         }
     }
 
-    // WIN CONDITION
-    if (correct == width) {
+    if (correct === width) {
 
         gameOver = true;
 
         setTimeout(() => {
-
             window.location.href = "success.html";
-
-        }, 1200);
+        }, 1000);
     }
 }
